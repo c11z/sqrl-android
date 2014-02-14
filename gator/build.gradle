@@ -19,5 +19,7 @@ android {
 }
 
 dependencies {
-    compile files('src/main/lib/universal-image-loader-1.8.4.jar')
+    compile files('src/main/lib/universal-image-loader-1.8.4.jar',
+                  'src/main/lib/android-support-v4.jar',
+                  'src/main/lib/android-async-http-1.4.3.jar' )
 }

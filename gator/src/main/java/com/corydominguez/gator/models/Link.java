@@ -128,16 +128,6 @@ public class Link extends Model implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-    }
-
-    @Override
     public String toString() {
         return "Link{" +
                 "linkId=" + linkId +
@@ -153,4 +143,49 @@ public class Link extends Model implements Parcelable {
                 ", isBookmarked=" + isBookmarked +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.linkId);
+        dest.writeString(this.url);
+        dest.writeString(this.twitterUrl);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.domain);
+        dest.writeString(this.heroImageUrl);
+        dest.writeString(this.excerpt);
+        dest.writeSerializable(this.createdAt);
+        dest.writeSerializable(this.updatedAt);
+        dest.writeValue(this.isBookmarked);
+    }
+
+    private Link(Parcel in) {
+        this.linkId = (Long) in.readValue(Long.class.getClassLoader());
+        this.url = in.readString();
+        this.twitterUrl = in.readString();
+        this.title = in.readString();
+        this.description = in.readString();
+        this.domain = in.readString();
+        this.heroImageUrl = in.readString();
+        this.excerpt = in.readString();
+        this.createdAt = (Date) in.readSerializable();
+        this.updatedAt = (Date) in.readSerializable();
+        this.isBookmarked = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static Creator<Link> CREATOR = new Creator<Link>() {
+        public Link createFromParcel(Parcel source) {
+            return new Link(source);
+        }
+
+        public Link[] newArray(int size) {
+            return new Link[size];
+        }
+    };
 }

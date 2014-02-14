@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.activeandroid.Model;
+import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
 
 /**
@@ -72,16 +73,6 @@ public class Tweet extends Model implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-    }
-
-    @Override
     public String toString() {
         return "Tweet{" +
                 "tweetId=" + tweetId +
@@ -92,4 +83,38 @@ public class Tweet extends Model implements Parcelable {
                 ", link=" + link +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.tweetId);
+        dest.writeString(this.text);
+        dest.writeString(this.tweetUserId);
+        dest.writeString(this.profileImageUrl);
+        dest.writeString(this.screenName);
+        dest.writeParcelable(this.link, flags);
+    }
+
+    private Tweet(Parcel in) {
+        this.tweetId = (Long) in.readValue(Long.class.getClassLoader());
+        this.text = in.readString();
+        this.tweetUserId = in.readString();
+        this.profileImageUrl = in.readString();
+        this.screenName = in.readString();
+        this.link = in.readParcelable(Link.class.getClassLoader());
+    }
+
+    public static Creator<Tweet> CREATOR = new Creator<Tweet>() {
+        public Tweet createFromParcel(Parcel source) {
+            return new Tweet(source);
+        }
+
+        public Tweet[] newArray(int size) {
+            return new Tweet[size];
+        }
+    };
 }

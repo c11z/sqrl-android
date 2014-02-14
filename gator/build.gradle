@@ -23,10 +23,11 @@ android {
 }
 
 dependencies {
-    compile files('src/main/lib/universal-image-loader-1.8.4.jar')
-    compile files('src/main/lib/ActiveAndroid-3.1-adcddac4c58.jar')
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.1'
     compile 'com.fasterxml.jackson.core:jackson-core:2.3.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.3.0'
-    compile files('src/main/lib/android-async-http-1.4.3.jar')
+    compile files('src/main/lib/universal-image-loader-1.8.4.jar',
+                  'src/main/lib/android-support-v4.jar',
+                  'src/main/lib/android-async-http-1.4.3.jar' )
+
 }

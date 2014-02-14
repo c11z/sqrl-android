@@ -1,5 +1,6 @@
 package com.corydominguez.gator.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +11,7 @@ import android.widget.ListView;
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.adapters.LinksAdapter;
 import com.corydominguez.gator.clients.GatorClient;
-import com.corydominguez.gator.handlers.LinkListHandler;
+import com.corydominguez.gator.handlers.GatorHttpHandler;
 import com.corydominguez.gator.models.Link;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class LinksFragment extends Fragment {
     protected ListView lvLinks;
     protected ArrayList<Link> links;
     protected LinksAdapter linksAdapter;
-    protected LinkListHandler linkListHandler;
+    protected GatorHttpHandler gatorHttpHandler;
     protected GatorClient gatorClient;
 
     public ListView getLinksListView(){
@@ -38,8 +39,10 @@ public class LinksFragment extends Fragment {
         return this.linksAdapter;
     }
 
-    public LinkListHandler getLinkListHandler(){
-        return this.linkListHandler;
+    // Probably should not use the handler from here, instead instantiate the client
+    // that way we can only have one handler and manage whether it is running or not
+    public GatorHttpHandler getGatorHttpHandler(){
+        return this.gatorHttpHandler;
     }
 
     @Override
@@ -54,7 +57,8 @@ public class LinksFragment extends Fragment {
     }
 
     protected void setupClient(){
-        this.gatorClient = new GatorClient();
+        Context context = getActivity().getBaseContext();
+        this.gatorClient = new GatorClient(context, this.links, this.linksAdapter);
     }
 
     protected void setupViews(){
@@ -63,7 +67,8 @@ public class LinksFragment extends Fragment {
     }
 
     protected void setupHandlers(){
-        this.linkListHandler = new LinkListHandler(getActivity(), this.links, this.linksAdapter);
+        Context context = getActivity().getBaseContext();
+        this.gatorHttpHandler = new GatorHttpHandler(context, this.links, this.linksAdapter);
     }
 
 }

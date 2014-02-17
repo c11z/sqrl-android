@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.corydominguez.gator.activities.FeedActivity" >
+
+    <item android:id="@+id/action_bookmark"
+        android:title="Bookmark"
+        android:onClick="onToggleBookmark"
+        android:showAsAction="always" />
+    <item android:id="@+id/action_read"
+        android:title="Mark As Read"
+        android:onClick="onToggleRead"
+        android:showAsAction="always" />
+</menu>

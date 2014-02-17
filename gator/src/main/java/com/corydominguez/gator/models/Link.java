@@ -35,6 +35,9 @@ public class Link implements Parcelable {
 //    @Column(name = "IsBookmarked")
     private Boolean isBookmarked;
 
+    private Boolean isRead;
+
+
     private ArrayList<Tweet> tweets;
 
     public Link() {
@@ -105,6 +108,22 @@ public class Link implements Parcelable {
 
     public void setIsBookmarked(Boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
+    }
+
+    public Boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
+
+    public void toggleBookmark() {
+        isBookmarked = !isBookmarked;
+    }
+
+    public void toggleRead() {
+        isRead = !isRead;
     }
 
     public ArrayList<Tweet> getTweets() {

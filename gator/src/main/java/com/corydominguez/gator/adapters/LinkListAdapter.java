@@ -27,8 +27,10 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
             view = inflater.inflate(R.layout.link_item, null);
         }
 
-        Link link = getItem(position);
         assert (view != null);
+
+        Link link = getItem(position);
+        view.setTag(link);
 
         ImageView ivIsBookmarked = (ImageView) view.findViewById(R.id.ivIsBookmarked);
         ivIsBookmarked.setTag(link);
@@ -36,13 +38,17 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         ivIsBookmarked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Link link = (Link) v.getTag();
-                link.setIsBookmarked(!link.getIsBookmarked());
+                View parent = (View) v.getParent();
+                assert(parent != null);
+                Link link = (Link) parent.getTag();
+                link.toggleBookmark();
                 setBookmark(link.getIsBookmarked(), (ImageView) v);
             }
         });
+
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvTitle.setText(link.getTitle());
+
         TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvDescription.setText(link.getDescription());
 

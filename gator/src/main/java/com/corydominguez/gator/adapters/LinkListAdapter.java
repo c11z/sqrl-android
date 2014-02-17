@@ -16,9 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import static android.app.PendingIntent.getActivity;
 
-public class LinksAdapter extends ArrayAdapter<Link>{
+public class LinkListAdapter extends ArrayAdapter<Link>{
 
-    public LinksAdapter(Context context, List<Link> links){
+    public LinkListAdapter(Context context, List<Link> links){
         super(context, 0, links);
     }
 

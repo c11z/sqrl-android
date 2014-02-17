@@ -1,6 +1,5 @@
 package com.corydominguez.gator.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.corydominguez.gator.R;
-import com.corydominguez.gator.adapters.LinksAdapter;
+import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.clients.GatorClient;
 import com.corydominguez.gator.handlers.GatorHttpHandler;
 import com.corydominguez.gator.models.Link;
@@ -19,11 +18,10 @@ import java.util.ArrayList;
 /**
  * Created by jarrettcoggin on 2/13/14.
  */
-public class LinksFragment extends Fragment {
+public class LinkListFragment extends Fragment {
 
     protected ListView lvLinks;
-    protected ArrayList<Link> links;
-    protected LinksAdapter linksAdapter;
+    protected LinkListAdapter linkListAdapter;
     protected GatorHttpHandler gatorHttpHandler;
     protected GatorClient gatorClient;
 
@@ -31,12 +29,8 @@ public class LinksFragment extends Fragment {
         return this.lvLinks;
     }
 
-    public ArrayList<Link> getLinks(){
-        return this.links;
-    }
-
-    public LinksAdapter getLinksAdapter(){
-        return this.linksAdapter;
+    public LinkListAdapter getLinkListAdapter(){
+        return this.linkListAdapter;
     }
 
     // Probably should not use the handler from here, instead instantiate the client
@@ -52,23 +46,16 @@ public class LinksFragment extends Fragment {
     }
 
     protected void setupAdapter(){
-        this.links = new ArrayList<Link>();
-        this.linksAdapter = new LinksAdapter(getActivity(), this.links);
+        ArrayList<Link> links = new ArrayList<Link>();
+        this.linkListAdapter = new LinkListAdapter(getActivity(), links);
     }
 
     protected void setupClient(){
-        Context context = getActivity().getBaseContext();
-        this.gatorClient = new GatorClient(context, this.links, this.linksAdapter);
+        this.gatorClient = new GatorClient(this.linkListAdapter);
     }
 
     protected void setupViews(){
         this.lvLinks = (ListView) getActivity().findViewById(R.id.lvLinks);
-        this.lvLinks.setAdapter(this.linksAdapter);
+        this.lvLinks.setAdapter(this.linkListAdapter);
     }
-
-    protected void setupHandlers(){
-        Context context = getActivity().getBaseContext();
-        this.gatorHttpHandler = new GatorHttpHandler(context, this.links, this.linksAdapter);
-    }
-
 }

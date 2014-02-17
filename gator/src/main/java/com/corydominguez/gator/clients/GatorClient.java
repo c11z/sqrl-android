@@ -1,17 +1,14 @@
 package com.corydominguez.gator.clients;
 
-import android.content.Context;
 import android.net.Uri;
 
-import com.corydominguez.gator.adapters.LinksAdapter;
+import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.handlers.GatorHttpHandler;
-import com.corydominguez.gator.models.Link;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -24,8 +21,8 @@ public class GatorClient extends AsyncHttpClient {
     private DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     private GatorHttpHandler handler;
 
-    public GatorClient(Context context, ArrayList<Link> links, LinksAdapter linksAdapter) {
-        this.handler = new GatorHttpHandler(context, links, linksAdapter);
+    public GatorClient(LinkListAdapter linkListAdapter) {
+        this.handler = new GatorHttpHandler(linkListAdapter);
     }
 
     @Override

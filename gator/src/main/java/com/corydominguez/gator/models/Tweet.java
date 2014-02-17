@@ -4,27 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.activeandroid.Model;
-import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
 /**
  * Created by coryd on 13/02/2014.
  */
-public class Tweet extends Model implements Parcelable {
-    @Column(name = "TweetId", index = true, unique = true)
+
+//@Table(name = "Tweet")
+public class Tweet implements Parcelable {
+//    @Column(name = "TweetId", index = true, unique = true)
     private Long tweetId;
-    @Column(name = "Text")
+//    @Column(name = "Text")
     private String text;
-    @Column(name = "TweetUserId")
+//    @Column(name = "TweetUserId")
     private Long tweetUserId;
-    @Column(name = "ProfileImageUrl")
+//    @Column(name = "ProfileImageUrl")
     private String profileImageUrl;
-    @Column(name = "ScreenName")
+//    @Column(name = "ScreenName")
     private String screenName;
-    @Column(name = "Name")
+//    @Column(name = "Name")
     private String name;
-    @Column(name = "Link")
-    private Link link;
+//    @Column(name = "Link")
+//    private Link link;
 
     public Tweet() {
         super();
@@ -78,13 +80,13 @@ public class Tweet extends Model implements Parcelable {
         this.screenName = screenName;
     }
 
-    public Link getLink() {
-        return link;
-    }
-
-    public void setLink(Link link) {
-        this.link = link;
-    }
+//    public Link getLink() {
+//        return link;
+//    }
+//
+//    public void setLink(Link link) {
+//        this.link = link;
+//    }
 
     @Override
     public String toString() {
@@ -94,7 +96,7 @@ public class Tweet extends Model implements Parcelable {
                 ", tweetUserId='" + tweetUserId + '\'' +
                 ", profileImageUrl='" + profileImageUrl + '\'' +
                 ", screenName='" + screenName + '\'' +
-                ", link=" + link +
+//                ", link=" + link +
                 '}';
     }
 
@@ -110,7 +112,7 @@ public class Tweet extends Model implements Parcelable {
         dest.writeValue(this.tweetUserId);
         dest.writeString(this.profileImageUrl);
         dest.writeString(this.screenName);
-        dest.writeParcelable(this.link, flags);
+//        dest.writeParcelable(this.link, flags);
     }
 
     private Tweet(Parcel in) {
@@ -119,7 +121,7 @@ public class Tweet extends Model implements Parcelable {
         this.tweetUserId = (Long) in.readValue(Long.class.getClassLoader());
         this.profileImageUrl = in.readString();
         this.screenName = in.readString();
-        this.link = in.readParcelable(Link.class.getClassLoader());
+//        this.link = in.readParcelable(Link.class.getClassLoader());
     }
 
     public static Creator<Tweet> CREATOR = new Creator<Tweet>() {

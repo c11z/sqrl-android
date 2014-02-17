@@ -8,7 +8,8 @@ import android.widget.ProgressBar;
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.models.Link;
-import com.corydominguez.gator.models.Tweet;
+//import com.corydominguez.gator.models.Tweet;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -24,8 +25,8 @@ public class GatorHttpHandler extends AsyncHttpResponseHandler {
     public Boolean appendMode;
     private LinkListAdapter adapter;
     protected ProgressBar pb;
-    public static final ObjectMapper mapper = new ObjectMapper().configure(
-            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    public static final ObjectMapper mapper = new ObjectMapper();
+//            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public GatorHttpHandler(ProgressBar pb, LinkListAdapter adapter) {
         this.adapter = adapter;
@@ -47,6 +48,7 @@ public class GatorHttpHandler extends AsyncHttpResponseHandler {
             TypeReference<ArrayList<Link>> tr = new TypeReference<ArrayList<Link>>() {};
             ArrayList<Link> newLinks;
             newLinks = mapper.readValue(s, tr);
+            Log.d("DEBUG", newLinks.toString());
             dealWithNewLinks(newLinks);
         } catch (JsonParseException e) {
             e.printStackTrace();

@@ -11,50 +11,47 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-@Table(name = "Link")
-public class Link extends Model implements Parcelable {
-    @Column(name = "LinkId", index = true, unique = true)
-    private Long linkId;
-    @Column(name = "Url", unique = true)
+//@Table(name = "Link")
+public class Link implements Parcelable {
+//    @Column(name = "LinkId", index = true, unique = true)
+    private int linkId;
+//    @Column(name = "Url", unique = true)
     private String url;
-    @Column(name = "TwitterUrl")
+//    @Column(name = "TwitterUrl")
     private String twitterUrl;
-    @Column(name = "Title")
+//    @Column(name = "Title")
     private String title;
-    @Column(name = "Description")
+//    @Column(name = "Description")
     private String description;
-    @Column(name = "Domain")
-    private String domain;
-    @Column(name = "HeroImageUrl")
-    private String heroImageUrl;
-    @Column(name = "Excerpt")
-    private String excerpt;
-    @Column(name = "CreatedAt")
+//    @Column(name = "CreatedAt")
     private Date createdAt;
-    @Column(name = "UpdatedAt", index = true)
+//    @Column(name = "UpdatedAt", index = true)
     private Date updatedAt;
-    @Column(name = "IsBookmarked")
+//    @Column(name = "IsBookmarked")
     private Boolean isBookmarked;
 
-    DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+    private ArrayList<Tweet> tweets;
 
     public Link() {
         super();
+        this.updatedAt = new Date();
+        this.isBookmarked = false;
     }
 
-    public List<Tweet> tweets() {
-        return getMany(Tweet.class, "Link");
-    }
+//    public List<Tweet> tweets() {
+//        return getMany(Tweet.class, "Link");
+//    }
 
-    public Long getLinkId() {
+    public int getLinkId() {
         return linkId;
     }
 
-    public void setLinkId(Long linkId) {
+    public void setLinkId(int linkId) {
         this.linkId = linkId;
     }
 
@@ -90,30 +87,6 @@ public class Link extends Model implements Parcelable {
         this.description = description;
     }
 
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getHeroImageUrl() {
-        return heroImageUrl;
-    }
-
-    public void setHeroImageUrl(String heroImageUrl) {
-        this.heroImageUrl = heroImageUrl;
-    }
-
-    public String getExcerpt() {
-        return excerpt;
-    }
-
-    public void setExcerpt(String excerpt) {
-        this.excerpt = excerpt;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -138,7 +111,13 @@ public class Link extends Model implements Parcelable {
         this.isBookmarked = isBookmarked;
     }
 
+    public ArrayList<Tweet> getTweets() {
+        return tweets;
+    }
 
+    public void setTweets(ArrayList<Tweet> tweets) {
+        this.tweets = tweets;
+    }
 
     @JsonAnySetter
     public void anySetter(String key, Object value) {
@@ -148,14 +127,13 @@ public class Link extends Model implements Parcelable {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            setUpdatedAt(new Date());
         }
     }
 
     private Date parseDate(String dateString) throws ParseException {
+        DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
         return df.parse(dateString);
     }
-
 
     @Override
     public String toString() {
@@ -165,15 +143,11 @@ public class Link extends Model implements Parcelable {
                 ", twitterUrl='" + twitterUrl + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", domain='" + domain + '\'' +
-                ", heroImageUrl='" + heroImageUrl + '\'' +
-                ", excerpt='" + excerpt + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", isBookmarked=" + isBookmarked +
                 '}';
     }
-
 
     @Override
     public int describeContents() {
@@ -182,28 +156,22 @@ public class Link extends Model implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.linkId);
+        dest.writeInt(this.linkId);
         dest.writeString(this.url);
         dest.writeString(this.twitterUrl);
         dest.writeString(this.title);
         dest.writeString(this.description);
-        dest.writeString(this.domain);
-        dest.writeString(this.heroImageUrl);
-        dest.writeString(this.excerpt);
         dest.writeSerializable(this.createdAt);
         dest.writeSerializable(this.updatedAt);
         dest.writeValue(this.isBookmarked);
     }
 
     private Link(Parcel in) {
-        this.linkId = (Long) in.readValue(Long.class.getClassLoader());
+        this.linkId = in.readInt();
         this.url = in.readString();
         this.twitterUrl = in.readString();
         this.title = in.readString();
         this.description = in.readString();
-        this.domain = in.readString();
-        this.heroImageUrl = in.readString();
-        this.excerpt = in.readString();
         this.createdAt = (Date) in.readSerializable();
         this.updatedAt = (Date) in.readSerializable();
         this.isBookmarked = (Boolean) in.readValue(Boolean.class.getClassLoader());

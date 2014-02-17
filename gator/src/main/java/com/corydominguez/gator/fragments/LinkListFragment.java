@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.adapters.LinkListAdapter;
@@ -24,6 +25,7 @@ public class LinkListFragment extends Fragment {
     protected LinkListAdapter linkListAdapter;
     protected GatorHttpHandler gatorHttpHandler;
     protected GatorClient gatorClient;
+    protected ProgressBar pb;
 
     public ListView getLinksListView(){
         return this.lvLinks;
@@ -42,7 +44,16 @@ public class LinkListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_link_list, container, false);
+        return inflater.inflate(R.layout.fragment_linklist, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setupAdapter();
+        setupViews();
+        setupClient();
+        gatorClient.getPast24();
     }
 
     protected void setupAdapter(){
@@ -51,11 +62,12 @@ public class LinkListFragment extends Fragment {
     }
 
     protected void setupClient(){
-        this.gatorClient = new GatorClient(this.linkListAdapter);
+        this.gatorClient = new GatorClient(pb, linkListAdapter);
     }
 
     protected void setupViews(){
         this.lvLinks = (ListView) getActivity().findViewById(R.id.lvLinks);
-        this.lvLinks.setAdapter(this.linkListAdapter);
+        this.lvLinks.setAdapter(linkListAdapter);
+        this.pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
     }
 }

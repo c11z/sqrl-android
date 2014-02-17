@@ -6,18 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.models.Link;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import static android.app.PendingIntent.getActivity;
-
-public class LinkListAdapter extends ArrayAdapter<Link>{
-
+public class LinkListAdapter extends ArrayAdapter<Link> {
     public LinkListAdapter(Context context, List<Link> links){
         super(context, 0, links);
     }
@@ -31,28 +28,35 @@ public class LinkListAdapter extends ArrayAdapter<Link>{
         }
 
         Link link = getItem(position);
+        assert (view != null);
 
-        ImageView ivBookmarkStatus = (ImageView) view.findViewById(R.id.ivBookmarkStatus);
-        String linkTitle = "EMPTY TITLE!";
-        String linkMetaDescription = "EMPTY META DESCRIPTION!";
-        String bookmarkLocation = "drawable://" + R.drawable.ic_not_bookmarked;
-        Boolean boolBookmarkStatus = new Boolean(false);
-        ivBookmarkStatus.setTag(boolBookmarkStatus);
-        ivBookmarkStatus.setOnClickListener(new View.OnClickListener() {
+        ImageView ivIsBookmarked = (ImageView) view.findViewById(R.id.ivIsBookmarked);
+        ivIsBookmarked.setTag(link);
+        setBookmark(link.getIsBookmarked(), ivIsBookmarked);
+        ivIsBookmarked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newImage = "drawable://" + R.drawable.ic_bookmarked;
-                if ((Boolean) v.getTag()) {
-                    v.setTag(new Boolean(true));
-                } else {
-                    v.setTag(new Boolean(false));
-                    newImage = "drawable://" + R.drawable.ic_not_bookmarked;
-                }
-                ImageLoader.getInstance().displayImage(newImage, (ImageView) v);
+                Link link = (Link) v.getTag();
+                link.setIsBookmarked(!link.getIsBookmarked());
+                setBookmark(link.getIsBookmarked(), (ImageView) v);
             }
         });
+        TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        tvTitle.setText(link.getTitle());
+        TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        tvDescription.setText(link.getDescription());
 
         return view;
+    }
+
+    private void setBookmark(Boolean isBookmarked, ImageView ivIsBookmarked) {
+        if (isBookmarked) {
+            String bookmarked = "drawable://" + R.drawable.ic_bookmarked;
+            ImageLoader.getInstance().displayImage(bookmarked, ivIsBookmarked);
+        } else {
+            String notBookmarked = "drawable://" + R.drawable.ic_not_bookmarked;
+            ImageLoader.getInstance().displayImage(notBookmarked, ivIsBookmarked);
+        }
     }
 
 }

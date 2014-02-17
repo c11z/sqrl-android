@@ -6,9 +6,14 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Table(name = "Link")
 public class Link extends Model implements Parcelable {
@@ -34,6 +39,12 @@ public class Link extends Model implements Parcelable {
     private Date updatedAt;
     @Column(name = "IsBookmarked")
     private Boolean isBookmarked;
+
+    DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+
+    public Link() {
+        super();
+    }
 
     public List<Tweet> tweets() {
         return getMany(Tweet.class, "Link");
@@ -126,6 +137,25 @@ public class Link extends Model implements Parcelable {
     public void setIsBookmarked(Boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
+
+
+
+    @JsonAnySetter
+    public void anySetter(String key, Object value) {
+        if (key.equals("createdAt")) {
+            try {
+                setCreatedAt(parseDate((String) value));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            setUpdatedAt(new Date());
+        }
+    }
+
+    private Date parseDate(String dateString) throws ParseException {
+        return df.parse(dateString);
+    }
+
 
     @Override
     public String toString() {

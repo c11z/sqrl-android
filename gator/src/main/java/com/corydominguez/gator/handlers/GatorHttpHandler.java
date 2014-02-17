@@ -1,10 +1,14 @@
 package com.corydominguez.gator.handlers;
 
+import android.app.Activity;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import com.corydominguez.gator.R;
 import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.models.Link;
+import com.corydominguez.gator.models.Tweet;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -16,16 +20,17 @@ import java.util.ArrayList;
 
 public class GatorHttpHandler extends AsyncHttpResponseHandler {
     // Removed the LinksListHandler since I thought it was too much of an abstraction
-    protected LinkListAdapter linkListAdapter;
     public Boolean running;
+    public Boolean appendMode;
+    private LinkListAdapter adapter;
     protected ProgressBar pb;
     public static final ObjectMapper mapper = new ObjectMapper().configure(
             DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public GatorHttpHandler(LinkListAdapter linkListAdapter) {
-        // not sure if we absolutely need both the adapter and the arraylist it is built on
-        // in my experience if you change one the other is updated.
-        this.linkListAdapter = linkListAdapter;
+    public GatorHttpHandler(ProgressBar pb, LinkListAdapter adapter) {
+        this.adapter = adapter;
+        this.running = false;
+        this.pb = pb;
     }
 
     @Override
@@ -63,8 +68,22 @@ public class GatorHttpHandler extends AsyncHttpResponseHandler {
         running = false;
     }
 
-    private void dealWithNewLinks(ArrayList<Link> newLinks) {
-        // TODO: Add new links to the adapter or arraylist
+    protected void dealWithNewLinks(ArrayList<Link> newLinks) {
+        for (int i=0; i < newLinks.size(); i++) {
+            Link link = newLinks.get(i);
+            // Save to database
+//            for (Tweet tweet : link.tweets()) {
+//                tweet.save();
+//            }
+//            link.save();
+            // Check if we are putting tweets on top or on the bottom of the list view
+            if (appendMode) {
+                adapter.add(link);
+            } else {
+                adapter.insert(link, i);
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 }
 

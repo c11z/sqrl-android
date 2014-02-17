@@ -16,13 +16,27 @@ public class Tweet extends Model implements Parcelable {
     @Column(name = "Text")
     private String text;
     @Column(name = "TweetUserId")
-    private String tweetUserId;
+    private Long tweetUserId;
     @Column(name = "ProfileImageUrl")
     private String profileImageUrl;
     @Column(name = "ScreenName")
     private String screenName;
+    @Column(name = "Name")
+    private String name;
     @Column(name = "Link")
     private Link link;
+
+    public Tweet() {
+        super();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Long getTweetId() {
         return tweetId;
@@ -40,11 +54,11 @@ public class Tweet extends Model implements Parcelable {
         this.text = text;
     }
 
-    public String getTweetUserId() {
+    public Long getTweetUserId() {
         return tweetUserId;
     }
 
-    public void setTweetUserId(String tweetUserId) {
+    public void setTweetUserId(Long tweetUserId) {
         this.tweetUserId = tweetUserId;
     }
 
@@ -93,7 +107,7 @@ public class Tweet extends Model implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.tweetId);
         dest.writeString(this.text);
-        dest.writeString(this.tweetUserId);
+        dest.writeValue(this.tweetUserId);
         dest.writeString(this.profileImageUrl);
         dest.writeString(this.screenName);
         dest.writeParcelable(this.link, flags);
@@ -102,7 +116,7 @@ public class Tweet extends Model implements Parcelable {
     private Tweet(Parcel in) {
         this.tweetId = (Long) in.readValue(Long.class.getClassLoader());
         this.text = in.readString();
-        this.tweetUserId = in.readString();
+        this.tweetUserId = (Long) in.readValue(Long.class.getClassLoader());
         this.profileImageUrl = in.readString();
         this.screenName = in.readString();
         this.link = in.readParcelable(Link.class.getClassLoader());

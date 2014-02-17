@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.util.SystemUiHider;
@@ -22,9 +23,9 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_splash_screen);
-        ActionBar ab = getActionBar();
-        ab.hide();
  
         new Handler().postDelayed(new Runnable() {
  

@@ -43,10 +43,6 @@ public class Link implements Parcelable {
         this.isBookmarked = false;
     }
 
-//    public List<Tweet> tweets() {
-//        return getMany(Tweet.class, "Link");
-//    }
-
     public int getLinkId() {
         return linkId;
     }

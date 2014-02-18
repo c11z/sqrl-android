@@ -92,7 +92,7 @@ public class Tweet implements Parcelable {
                 ", tweetUserId='" + tweetUserId + '\'' +
                 ", profileImageUrl='" + profileImageUrl + '\'' +
                 ", screenName='" + screenName + '\'' +
-//                ", link=" + link +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -108,6 +108,7 @@ public class Tweet implements Parcelable {
         dest.writeValue(this.tweetUserId);
         dest.writeString(this.profileImageUrl);
         dest.writeString(this.screenName);
+        dest.writeString(this.name);
 //        dest.writeParcelable(this.link, flags);
     }
 
@@ -117,6 +118,7 @@ public class Tweet implements Parcelable {
         this.tweetUserId = (Long) in.readValue(Long.class.getClassLoader());
         this.profileImageUrl = in.readString();
         this.screenName = in.readString();
+        this.name = in.readString();
 //        this.link = in.readParcelable(Link.class.getClassLoader());
     }
 

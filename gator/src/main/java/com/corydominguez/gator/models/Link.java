@@ -3,9 +3,6 @@ package com.corydominguez.gator.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 import java.text.DateFormat;
@@ -13,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 //@Table(name = "Link")

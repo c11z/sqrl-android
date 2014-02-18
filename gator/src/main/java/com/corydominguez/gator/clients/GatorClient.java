@@ -1,23 +1,18 @@
 package com.corydominguez.gator.clients;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.widget.ProgressBar;
 
 import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.handlers.GatorHttpHandler;
-import com.corydominguez.gator.models.Link;
-//import com.corydominguez.gator.models.Tweet;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import static java.util.Calendar.*;
+//import com.corydominguez.gator.models.Tweet;
 
 
 /**

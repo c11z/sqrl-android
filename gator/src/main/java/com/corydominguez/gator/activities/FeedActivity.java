@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.corydominguez.gator.R;
-import com.corydominguez.gator.fragments.LinkDetailFragment;
 import com.corydominguez.gator.fragments.LinkListFragment;
 import com.corydominguez.gator.models.Link;
 
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 public class FeedActivity extends FragmentActivity {
     public FragmentManager manager;
     private LinkListFragment llf;
-    private LinkDetailFragment ldf;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +49,4 @@ public class FeedActivity extends FragmentActivity {
 
     public void onSearch(MenuItem item) {
     }
-
 }

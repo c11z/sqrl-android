@@ -1,6 +1,5 @@
 package com.corydominguez.gator.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,11 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.corydominguez.gator.activities.DetailActivity" >
-
     <item android:id="@+id/action_bookmark"
-        android:title="Bookmark"
+        android:title="@string/bookmark_title"
         android:showAsAction="always" />
     <item android:id="@+id/action_read"
-        android:title="Mark As Read"
+        android:title="@string/read_title"
         android:showAsAction="always" />
 </menu>

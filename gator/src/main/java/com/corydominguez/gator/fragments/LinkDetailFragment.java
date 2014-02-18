@@ -1,9 +1,7 @@
 package com.corydominguez.gator.fragments;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +13,6 @@ import android.widget.TextView;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.models.Link;
-import com.corydominguez.gator.models.Tweet;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
 
 /**
  * Created by coryd on 17/02/2014.
@@ -105,5 +99,4 @@ public class LinkDetailFragment extends Fragment {
             menuItem.setIcon(R.drawable.ic_unmarked);
         }
     }
-
 }

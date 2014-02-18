@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ImageView
         android:id="@+id/ivIsBookmarked"
         android:layout_width="wrap_content"
@@ -13,7 +11,6 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/bookmark_status"
         />
-
     <ImageView
         android:id="@+id/ivToDetailView"
         android:layout_width="wrap_content"
@@ -23,10 +20,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_detail_arrow"
-        android:contentDescription="@string/detailViewDesc"
+        android:contentDescription="@string/detail_view_desc"
         android:onClick="onToDetailView"
         />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,5 +42,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 </RelativeLayout>

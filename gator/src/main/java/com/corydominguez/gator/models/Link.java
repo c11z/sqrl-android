@@ -38,12 +38,13 @@ public class Link implements Parcelable {
     private Boolean isRead;
 
 
-    private ArrayList<Tweet> tweets;
+    private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
     public Link() {
         super();
         this.updatedAt = new Date();
         this.isBookmarked = false;
+        this.isRead = false;
     }
 
     public int getLinkId() {
@@ -161,6 +162,8 @@ public class Link implements Parcelable {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", isBookmarked=" + isBookmarked +
+                ", isRead=" + isRead +
+                ", tweets=" + tweets +
                 '}';
     }
 
@@ -176,9 +179,11 @@ public class Link implements Parcelable {
         dest.writeString(this.twitterUrl);
         dest.writeString(this.title);
         dest.writeString(this.description);
-        dest.writeSerializable(this.createdAt);
-        dest.writeSerializable(this.updatedAt);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
         dest.writeValue(this.isBookmarked);
+        dest.writeValue(this.isRead);
+        dest.writeTypedList(this.tweets);
     }
 
     private Link(Parcel in) {
@@ -187,9 +192,13 @@ public class Link implements Parcelable {
         this.twitterUrl = in.readString();
         this.title = in.readString();
         this.description = in.readString();
-        this.createdAt = (Date) in.readSerializable();
-        this.updatedAt = (Date) in.readSerializable();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
         this.isBookmarked = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isRead = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        in.readTypedList(this.tweets, Tweet.CREATOR);
     }
 
     public static Creator<Link> CREATOR = new Creator<Link>() {

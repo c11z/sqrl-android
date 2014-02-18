@@ -24,7 +24,7 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         View view = convertView;
         if (view == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.link_item, null);
+            view = inflater.inflate(R.layout.item_link, null);
         }
 
         assert (view != null);
@@ -51,6 +51,9 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
 
         TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvDescription.setText(link.getDescription());
+
+        ImageView ivToDetailView = (ImageView) view.findViewById(R.id.ivToDetailView);
+        ivToDetailView.setTag(position);
 
         return view;
     }

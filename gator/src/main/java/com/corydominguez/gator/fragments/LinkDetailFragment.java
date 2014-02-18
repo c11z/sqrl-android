@@ -1,29 +1,109 @@
 package com.corydominguez.gator.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.corydominguez.gator.R;
+import com.corydominguez.gator.models.Link;
+import com.corydominguez.gator.models.Tweet;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
 
 /**
  * Created by coryd on 17/02/2014.
  */
 public class LinkDetailFragment extends Fragment {
+    private Link link;
+    private TextView tvTitle;
+    private TextView tvDescription;
+    private TextView tvUrl;
+    private LinearLayout llTweets;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        link = getArguments().getParcelable("link");
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_linklist, container, false);
+        View view = inflater.inflate(R.layout.fragment_linkdetail, container, false);
+        assert (view != null);
+
+        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        tvUrl = (TextView) view.findViewById(R.id.tvUrl);
+        llTweets = (LinearLayout) view.findViewById(R.id.llTweets);
+
+        tvTitle.setText(link.getTitle());
+        tvDescription.setText(link.getDescription());
+        tvUrl.setText(link.getUrl());
+
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.detail, menu);
+
+        MenuItem actionBookmark = menu.findItem(R.id.action_bookmark);
+        assert (actionBookmark != null);
+        setBookmark(link.getIsBookmarked(), actionBookmark);
+        actionBookmark.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                link.toggleBookmark();
+                setBookmark(link.getIsBookmarked(), menuItem);
+                return true;
+            }
+        });
+
+        MenuItem actionRead = menu.findItem(R.id.action_read);
+        assert (actionRead != null);
+        setRead(link.getIsRead(), actionRead);
+        actionRead.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                link.toggleRead();
+                setRead(link.getIsRead(), menuItem);
+                return true;
+            }
+        });
+    }
+
+    private void setBookmark(Boolean isBookmarked, MenuItem menuItem) {
+        if (isBookmarked) {
+            menuItem.setIcon(R.drawable.ic_bookmarked);
+        } else {
+            menuItem.setIcon(R.drawable.ic_not_bookmarked);
+        }
+    }
+
+    private void setRead(Boolean isRead, MenuItem menuItem) {
+        if (isRead) {
+            menuItem.setIcon(R.drawable.ic_marked);
+        } else {
+            menuItem.setIcon(R.drawable.ic_unmarked);
+        }
     }
 
 }

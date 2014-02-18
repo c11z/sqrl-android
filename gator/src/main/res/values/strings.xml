@@ -6,5 +6,10 @@
     <string name="action_settings">Settings</string>
     <string name="bookmark_status">Bookmark Status</string>
     <string name="detailViewDesc">Go to detail view</string>
+    <string name="profile_image_description">Twitter profile image</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>

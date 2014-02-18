@@ -3,6 +3,8 @@ package com.corydominguez.gator.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,6 +25,7 @@ public class LinkListFragment extends Fragment {
 
     protected ListView lvLinks;
     protected LinkListAdapter linkListAdapter;
+    protected ArrayList<Link> linkList;
     protected GatorHttpHandler gatorHttpHandler;
     protected GatorClient gatorClient;
     protected ProgressBar pb;
@@ -35,10 +38,19 @@ public class LinkListFragment extends Fragment {
         return this.linkListAdapter;
     }
 
+    public ArrayList<Link> getLinkList() {
+        return this.linkList;
+    }
     // Probably should not use the handler from here, instead instantiate the client
     // that way we can only have one handler and manage whether it is running or not
     public GatorHttpHandler getGatorHttpHandler(){
         return this.gatorHttpHandler;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -57,8 +69,8 @@ public class LinkListFragment extends Fragment {
     }
 
     protected void setupAdapter(){
-        ArrayList<Link> links = new ArrayList<Link>();
-        this.linkListAdapter = new LinkListAdapter(getActivity(), links);
+        linkList = new ArrayList<Link>();
+        this.linkListAdapter = new LinkListAdapter(getActivity(), linkList);
     }
 
     protected void setupClient(){
@@ -70,4 +82,9 @@ public class LinkListFragment extends Fragment {
         this.lvLinks.setAdapter(linkListAdapter);
         this.pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.feed, menu);}
 }

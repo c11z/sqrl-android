@@ -9,9 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.corydominguez.gator.R;
+import com.corydominguez.gator.adapters.TweetsAdapter;
 import com.corydominguez.gator.models.Link;
 
 /**
@@ -22,7 +24,8 @@ public class LinkDetailFragment extends Fragment {
     private TextView tvTitle;
     private TextView tvDescription;
     private TextView tvUrl;
-    private LinearLayout llTweets;
+    private ListView lvTweets;
+    private TweetsAdapter tweetsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +48,13 @@ public class LinkDetailFragment extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvUrl = (TextView) view.findViewById(R.id.tvUrl);
-        llTweets = (LinearLayout) view.findViewById(R.id.llTweets);
+        lvTweets = (ListView) view.findViewById(R.id.lvTweets);
+        tweetsAdapter = new TweetsAdapter(getActivity(),link.getTweets());
 
         tvTitle.setText(link.getTitle());
         tvDescription.setText(link.getDescription());
         tvUrl.setText(link.getUrl());
+        lvTweets.setAdapter(tweetsAdapter);
 
         return view;
     }

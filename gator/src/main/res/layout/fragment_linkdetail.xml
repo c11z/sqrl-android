@@ -4,7 +4,7 @@
     <LinearLayout android:orientation="vertical"
         android:id="@+id/llLinkContent"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <TextView
@@ -28,13 +28,20 @@
             android:id="@+id/tvUrl"
             android:layout_margin="5dp" />
     </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/llTweets"
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="5px"
+        android:paddingBottom="5px"
+        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/llLinkContent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    </LinearLayout>
+        android:src="@android:drawable/divider_horizontal_bright"
+        android:id="@+id/ivDivider"
+        android:background="#66c740"
+        android:layout_below="@+id/llLinkContent" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvTweets"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/ivDivider"/>
 </RelativeLayout>

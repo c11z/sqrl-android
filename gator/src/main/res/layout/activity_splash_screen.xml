@@ -1,17 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple"
     tools:context=".SplashScreenActivity" >
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:keepScreenOn="true"
-        android:text="@string/app_name"
-        android:background="#66c740"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-</FrameLayout>
+        android:src="@drawable/ic_actionbar" />
+</RelativeLayout>

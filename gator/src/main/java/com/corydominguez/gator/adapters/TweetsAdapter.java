@@ -1,7 +1,6 @@
 package com.corydominguez.gator.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -6,4 +6,12 @@
         android:icon="@drawable/ic_search"
         android:onClick="onSearch"
         android:showAsAction="always" />
+    <item android:id="@+id/action_mark_all_read"
+        android:title="@string/mark_all_read"
+        android:onClick="onMarkAllRead"
+        android:showAsAction="never" />
+    <item android:id="@+id/action_show"
+        android:onClick="onShow"
+        android:title=""
+        android:showAsAction="never" />
 </menu>

@@ -1,45 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
     <ImageView
         android:id="@+id/ivIsBookmarked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/bookmark_status"
         />
-    <ImageView
-        android:id="@+id/ivToDetailView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/ic_detail_arrow"
-        android:contentDescription="@string/detail_view_desc"
-        android:onClick="onToDetailView"
-        />
+
     <LinearLayout
+        android:id="@+id/llItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toRightOf="@id/ivIsBookmarked"
-        android:layout_toLeftOf="@id/ivToDetailView"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp" >
+        android:layout_marginBottom="10dp"
+        android:onClick="onToDetailView" >
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/tvDescription"
+            android:textSize="13sp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvDomain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+             <TextView
+                android:id="@+id/tvTweetCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvTweetHandles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+   </LinearLayout>
 </RelativeLayout>

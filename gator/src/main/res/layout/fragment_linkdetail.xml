@@ -10,7 +10,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title of a website"
             android:id="@+id/tvTitle"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -18,25 +17,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meta Description of the website"
             android:id="@+id/tvDescription"
             android:layout_margin="5dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="http://example.com/hello"
             android:id="@+id/tvUrl"
             android:layout_margin="5dp" />
     </LinearLayout>
     <ImageView
         android:layout_gravity="center_horizontal"
-        android:paddingTop="5px"
-        android:paddingBottom="5px"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:src="@android:drawable/divider_horizontal_bright"
         android:id="@+id/ivDivider"
-        android:background="#66c740"
+        android:background="#400090"
         android:layout_below="@+id/llLinkContent" />
     <ListView
         android:layout_width="match_parent"

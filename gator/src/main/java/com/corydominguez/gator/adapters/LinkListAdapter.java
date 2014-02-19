@@ -1,17 +1,22 @@
 package com.corydominguez.gator.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.models.Link;
+import com.corydominguez.gator.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 public class LinkListAdapter extends ArrayAdapter<Link> {
@@ -52,8 +57,35 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvDescription.setText(link.getDescription());
 
-        ImageView ivToDetailView = (ImageView) view.findViewById(R.id.ivToDetailView);
-        ivToDetailView.setTag(position);
+        TextView tvDomain = (TextView) view.findViewById(R.id.tvDomain);
+        tvDomain.setText(link.getDomain());
+
+        TextView tvTweetCount = (TextView) view.findViewById(R.id.tvTweetCount);
+        tvTweetCount.setText(String.valueOf(link.getTweets().size()));
+
+        TextView tvTweetHandles = (TextView) view.findViewById(R.id.tvTweetHandles);
+        String handles = "";
+        HashSet<String> handleSet = new HashSet<String>();
+
+        for (Tweet tweet : link.getTweets()) {
+            handleSet.add("@" + tweet.getScreenName());
+        }
+        if (handleSet.size() < 4) {
+            handles = TextUtils.join(", ", handleSet);
+        } else {
+            Iterator<String> handleIter = handleSet.iterator();
+            handles = handleIter.next();
+            handles += ", ";
+            handles += handleIter.next();
+            handles += ", ";
+            handles += handleIter.next();
+            handles += "...";
+        }
+
+        tvTweetHandles.setText(handles);
+
+        LinearLayout llItem = (LinearLayout) view.findViewById(R.id.llItem);
+        llItem.setTag(position);
 
         return view;
     }

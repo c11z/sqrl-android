@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -48,5 +50,29 @@ public class FeedActivity extends FragmentActivity {
     }
 
     public void onSearch(MenuItem item) {
+
     }
+
+    public void onShow(MenuItem item) {
+        if(item.getTitle().equals("Show All")) {
+            item.setTitle("Show Unread");
+        } else {
+            item.setTitle("Show All");
+        }
+    }
+
+    public void onMarkAllRead(MenuItem item) {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.feed, menu);
+        MenuItem actionShow = menu.findItem(R.id.action_show);
+        assert (actionShow != null);
+        actionShow.setTitle("Show All");
+        return true;
+    }
+
 }

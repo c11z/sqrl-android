@@ -104,4 +104,5 @@ public class LinkDetailFragment extends Fragment {
             menuItem.setIcon(R.drawable.ic_unmarked);
         }
     }
+
 }

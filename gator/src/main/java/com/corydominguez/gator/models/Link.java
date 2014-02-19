@@ -12,25 +12,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-//@Table(name = "Link")
 public class Link implements Parcelable {
-//    @Column(name = "LinkId", index = true, unique = true)
     private int linkId;
-//    @Column(name = "Url", unique = true)
     private String url;
-//    @Column(name = "TwitterUrl")
     private String twitterUrl;
-//    @Column(name = "Title")
     private String title;
-//    @Column(name = "Description")
     private String description;
-//    @Column(name = "CreatedAt")
+    private String heroImageUrl;
+    private String domain;
     private Date createdAt;
-//    @Column(name = "UpdatedAt", index = true)
     private Date updatedAt;
-//    @Column(name = "IsBookmarked")
     private Boolean isBookmarked;
-
     private Boolean isRead;
 
 
@@ -81,6 +73,22 @@ public class Link implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getHeroImageUrl() {
+        return heroImageUrl;
+    }
+
+    public void setHeroImageUrl(String heroImageUrl) {
+        this.heroImageUrl = heroImageUrl;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public Date getCreatedAt() {
@@ -155,6 +163,8 @@ public class Link implements Parcelable {
                 ", twitterUrl='" + twitterUrl + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", heroImageUrl='" + heroImageUrl + '\'' +
+                ", domain='" + domain + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", isBookmarked=" + isBookmarked +
@@ -175,6 +185,8 @@ public class Link implements Parcelable {
         dest.writeString(this.twitterUrl);
         dest.writeString(this.title);
         dest.writeString(this.description);
+        dest.writeString(this.heroImageUrl);
+        dest.writeString(this.domain);
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
         dest.writeValue(this.isBookmarked);
@@ -188,6 +200,8 @@ public class Link implements Parcelable {
         this.twitterUrl = in.readString();
         this.title = in.readString();
         this.description = in.readString();
+        this.heroImageUrl = in.readString();
+        this.domain = in.readString();
         long tmpCreatedAt = in.readLong();
         this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
         long tmpUpdatedAt = in.readLong();

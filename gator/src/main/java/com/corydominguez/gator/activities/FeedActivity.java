@@ -47,6 +47,7 @@ public class FeedActivity extends FragmentActivity {
         intent.putParcelableArrayListExtra("linkList", linkList);
         intent.putExtra("pos", pos);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void onSearch(MenuItem item) {

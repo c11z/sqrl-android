@@ -23,17 +23,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvUrl"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:autoLink="web"
+            android:textColorLink="@color/purple"/>
     </LinearLayout>
     <ImageView
         android:layout_gravity="center_horizontal"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:src="@android:drawable/divider_horizontal_bright"
         android:id="@+id/ivDivider"
-        android:background="#400090"
+        android:background="#CCCCCC"
         android:layout_below="@+id/llLinkContent" />
     <ListView
         android:layout_width="match_parent"

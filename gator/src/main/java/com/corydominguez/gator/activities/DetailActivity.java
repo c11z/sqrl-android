@@ -50,6 +50,12 @@ public class DetailActivity extends FragmentActivity {
         mViewPager.setCurrentItem(pos);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.

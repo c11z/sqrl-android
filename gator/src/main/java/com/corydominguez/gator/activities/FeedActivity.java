@@ -1,6 +1,8 @@
 package com.corydominguez.gator.activities;
 
 import android.app.ActionBar;
+import android.app.ActionBar.TabListener;
+import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -13,35 +15,45 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.corydominguez.gator.R;
-import com.corydominguez.gator.fragments.LinkListFragment;
+import com.corydominguez.gator.fragments.BookmarkFragment;
+import com.corydominguez.gator.fragments.HomeFragment;
 import com.corydominguez.gator.models.Link;
 
 import java.util.ArrayList;
 
-public class FeedActivity extends FragmentActivity {
-    public FragmentManager manager;
-    private LinkListFragment llf;
+public class FeedActivity extends FragmentActivity implements TabListener {
+    Boolean inHomeFragment;
+    private HomeFragment hf;
+    private BookmarkFragment bf;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feed);
+        setUpTabs();
+    }
 
-        ActionBar ab = getActionBar();
-        if(ab == null){
-            Toast.makeText(this,"ActionBar failed", Toast.LENGTH_LONG).show();
-        }
-
-        manager = getSupportFragmentManager();
-        FragmentTransaction fts = manager.beginTransaction();
-        llf = new LinkListFragment();
-        fts.replace(R.id.flContainer, llf);
-        fts.commit();
+    private void setUpTabs() {
+        ActionBar actionBar = getActionBar();
+        assert(actionBar != null);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(true);
+        Tab tabHome = actionBar.newTab().setText("Home").setTag("HomeFragement").setTabListener(this);
+        Tab tabBookmark = actionBar.newTab().setText("Bookmarks").setTag("BookmarkFragment").setTabListener(this);
+        actionBar.addTab(tabHome);
+        actionBar.addTab(tabBookmark);
+        actionBar.selectTab(tabHome);
     }
 
     public void onToDetailView(View view) {
         Integer pos = (Integer) view.getTag();
-        ArrayList<Link> linkList = llf.getLinkList();
+
+        ArrayList<Link> linkList;
+        if (inHomeFragment) {
+           linkList = hf.getLinkList();
+        } else {
+           linkList = bf.getLinkList();
+        }
 
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
         intent.putParcelableArrayListExtra("linkList", linkList);
@@ -76,4 +88,34 @@ public class FeedActivity extends FragmentActivity {
         return true;
     }
 
+
+    @Override
+    public void onTabSelected(Tab tab, android.app.FragmentTransaction fragmentTransaction) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fts = manager.beginTransaction();
+        if (tab.getTag() == "HomeFragment") {
+            if (hf == null) {
+                hf = new HomeFragment();
+            }
+            inHomeFragment = true;
+            fts.replace(R.id.flContainer, hf);
+        } else {
+            if (bf == null) {
+                bf = new BookmarkFragment();
+            }
+            fts.replace(R.id.flContainer, bf);
+            inHomeFragment = false;
+        }
+        fts.commit();
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
+
+    }
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by jarrettcoggin on 2/13/14.
  */
-public class LinkListFragment extends Fragment {
+public abstract class LinkListFragment extends Fragment {
 
     protected ListView lvLinks;
     protected LinkListAdapter linkListAdapter;

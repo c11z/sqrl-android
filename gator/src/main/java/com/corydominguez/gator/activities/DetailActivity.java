@@ -1,11 +1,14 @@
 package com.corydominguez.gator.activities;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.fragments.LinkDetailFragment;
@@ -36,6 +39,9 @@ public class DetailActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ActionBar actionBar = getActionBar();
+        assert (actionBar != null);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         linkList = getIntent().getParcelableArrayListExtra("linkList");
         pos  = getIntent().getExtras().getInt("pos");
@@ -48,6 +54,12 @@ public class DetailActivity extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(pos);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     @Override

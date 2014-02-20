@@ -18,7 +18,7 @@
             android:name="com.corydominguez.gator.activities.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
-            android:label=""
+            android:label="@string/nickname"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

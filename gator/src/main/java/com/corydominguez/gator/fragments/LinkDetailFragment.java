@@ -91,9 +91,9 @@ public class LinkDetailFragment extends Fragment {
 
     private void setBookmark(Boolean isBookmarked, MenuItem menuItem) {
         if (isBookmarked) {
-            menuItem.setIcon(R.drawable.ic_bookmarked);
+            menuItem.setIcon(R.drawable.ic_action_bookmarked);
         } else {
-            menuItem.setIcon(R.drawable.ic_not_bookmarked);
+            menuItem.setIcon(R.drawable.ic_action_not_bookmarked);
         }
     }
 

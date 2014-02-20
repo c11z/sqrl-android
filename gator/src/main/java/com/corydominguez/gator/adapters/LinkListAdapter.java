@@ -91,9 +91,6 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
     }
 
     private void setBookmark(Boolean isBookmarked, ImageView ivIsBookmarked) {
-
-        //NEED TO ADD IN THE CALL TO UPDATE THE BOOKMARK STATUS ON THE SERVER.
-
         if (isBookmarked) {
             String bookmarked = "drawable://" + R.drawable.ic_bookmarked;
             ImageLoader.getInstance().displayImage(bookmarked, ivIsBookmarked);

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:padding="10dp">
     <ImageView
         android:id="@+id/ivIsBookmarked"
         android:layout_width="wrap_content"
@@ -26,29 +27,39 @@
         android:onClick="onToDetailView" >
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:ellipsize="end"
             android:textStyle="bold" />
         <TextView
+            android:id="@+id/tvDomain"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_purple"
+            android:textStyle="italic"
+            android:gravity="right"
+            android:onClick="onDomain"
+            android:clickable="true"/>
+
+        <TextView
             android:id="@+id/tvDescription"
             android:textSize="13sp"
             android:maxLines="4"
             android:ellipsize="end"
-            android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDomain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
              <TextView
                 android:id="@+id/tvTweetCount"
+                android:textStyle="bold"
+                android:paddingRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -60,6 +61,12 @@ public class FeedActivity extends FragmentActivity implements TabListener {
         intent.putExtra("pos", pos);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    public void onDomain(View v) {
+        String url = (String) v.getTag();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
     public void onSearch(MenuItem item) {

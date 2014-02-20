@@ -3,4 +3,5 @@
     <color name="transparent">#00000000</color>
     <color name="purple">#400090</color>
     <color name="light_purple">#7300FF</color>
+    <color name="white">#FFFFFF</color>
 </resources>

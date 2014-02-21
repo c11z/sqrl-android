@@ -58,7 +58,8 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         tvDescription.setText(link.getDescription());
 
         TextView tvDomain = (TextView) view.findViewById(R.id.tvDomain);
-        tvDomain.setText(link.getDomain());
+        tvDomain.setText( " - " + link.getDomain());
+        tvDomain.setTag(link.getUrl());
 
         TextView tvTweetCount = (TextView) view.findViewById(R.id.tvTweetCount);
         tvTweetCount.setText(String.valueOf(link.getTweets().size()));

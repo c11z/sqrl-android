@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -39,8 +40,8 @@ public class FeedActivity extends FragmentActivity implements TabListener {
         assert(actionBar != null);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
-        Tab tabHome = actionBar.newTab().setText("Home").setTag("HomeFragement").setTabListener(this);
-        Tab tabBookmark = actionBar.newTab().setText("Bookmarks").setTag("BookmarkFragment").setTabListener(this);
+        Tab tabHome = actionBar.newTab().setIcon(R.drawable.ic_action_home).setText("Home").setTag("HomeFragement").setTabListener(this);
+        Tab tabBookmark = actionBar.newTab().setIcon(R.drawable.ic_bookmarked).setText(" Bookmarks").setTag("BookmarkFragment").setTabListener(this);
         actionBar.addTab(tabHome);
         actionBar.addTab(tabBookmark);
         actionBar.selectTab(tabHome);

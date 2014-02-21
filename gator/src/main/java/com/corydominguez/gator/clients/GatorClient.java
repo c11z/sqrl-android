@@ -38,7 +38,7 @@ public class GatorClient extends AsyncHttpClient {
 
     public void getPast24() {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
+        cal.add(Calendar.DATE, -2);
         String yesterday = df.format(cal.getTime());
         String url = getApiUrl("linkbundle", yesterday);
         handler.appendMode = false;

@@ -20,21 +20,48 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LinkListAdapter extends ArrayAdapter<Link> {
+    private Boolean bookmarkMode;
+    private Boolean readMode;
+
     public LinkListAdapter(Context context, List<Link> links){
         super(context, 0, links);
+        bookmarkMode = false;
+        readMode= false;
+    }
+
+    public Boolean getBookmarkMode() {
+        return bookmarkMode;
+    }
+
+    public void setBookmarkMode(Boolean bookmarkMode) {
+        this.bookmarkMode = bookmarkMode;
+    }
+
+    public Boolean getReadMode() {
+        return readMode;
+    }
+
+    public void setReadMode(Boolean readMode) {
+        this.readMode = readMode;
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
-
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = convertView;
-        if (view == null){
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_link, null);
+        Link link = getItem(position);
+
+        if ((bookmarkMode && !link.getIsBookmarked()) || (readMode && !link.getIsRead())) {
+            view = inflater.inflate(R.layout.item_null, null);
+            assert view != null;
+            view.setTag("null");
+            return view;
         }
 
+        if (view == null || view.getTag() == "null") {
+            view = inflater.inflate(R.layout.item_link, null);
+        }
         assert (view != null);
 
-        Link link = getItem(position);
         view.setTag(link);
 
         ImageView ivIsBookmarked = (ImageView) view.findViewById(R.id.ivIsBookmarked);

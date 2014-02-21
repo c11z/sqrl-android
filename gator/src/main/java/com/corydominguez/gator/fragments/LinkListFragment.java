@@ -1,5 +1,6 @@
 package com.corydominguez.gator.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,21 +20,21 @@ import java.util.ArrayList;
 /**
  * Created by jarrettcoggin on 2/13/14.
  */
-public abstract class LinkListFragment extends Fragment {
+public class LinkListFragment extends Fragment {
 
     protected ListView lvLinks;
-    protected LinkListAdapter linkListAdapter;
+    protected LinkListAdapter adapter;
     protected ArrayList<Link> linkList;
     protected GatorHttpHandler gatorHttpHandler;
     protected GatorClient gatorClient;
     protected ProgressBar pb;
 
-    public ListView getLinksListView(){
+    public ListView getLVLinks(){
         return this.lvLinks;
     }
 
-    public LinkListAdapter getLinkListAdapter(){
-        return this.linkListAdapter;
+    public LinkListAdapter getAdapter(){
+        return this.adapter;
     }
 
     public ArrayList<Link> getLinkList() {
@@ -49,6 +50,7 @@ public abstract class LinkListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -68,17 +70,17 @@ public abstract class LinkListFragment extends Fragment {
 
     protected void setupAdapter(){
         linkList = new ArrayList<Link>();
-        this.linkListAdapter = new LinkListAdapter(getActivity(), linkList);
+        adapter = new LinkListAdapter(getActivity(), linkList);
     }
 
     protected void setupClient(){
-        this.gatorClient = new GatorClient(pb, linkListAdapter);
+        gatorClient = new GatorClient(pb, adapter);
     }
 
     protected void setupViews(){
-        this.lvLinks = (ListView) getActivity().findViewById(R.id.lvLinks);
-        this.lvLinks.setAdapter(linkListAdapter);
-        this.pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
+        lvLinks = (ListView) getActivity().findViewById(R.id.lvLinks);
+        lvLinks.setAdapter(adapter);
+        pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
     }
 
 

@@ -14,24 +14,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.corydominguez.gator.R;
-import com.corydominguez.gator.fragments.BookmarkFragment;
-import com.corydominguez.gator.fragments.HomeFragment;
-import com.corydominguez.gator.models.Link;
-
-import java.util.ArrayList;
+import com.corydominguez.gator.fragments.LinkListFragment;
 
 public class FeedActivity extends FragmentActivity implements TabListener {
-    Boolean inHomeFragment;
-    private HomeFragment hf;
-    private BookmarkFragment bf;
+    private static final String HTAG = "Home";
+    private static final String BTAG = "Bookmarks";
+
+    private LinkListFragment llf;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feed);
+        setUpFragment();
         setUpTabs();
     }
 
@@ -40,25 +37,33 @@ public class FeedActivity extends FragmentActivity implements TabListener {
         assert(actionBar != null);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
-        Tab tabHome = actionBar.newTab().setIcon(R.drawable.ic_action_home).setText("Home").setTag("HomeFragement").setTabListener(this);
-        Tab tabBookmark = actionBar.newTab().setIcon(R.drawable.ic_bookmarked).setText(" Bookmarks").setTag("BookmarkFragment").setTabListener(this);
+        Tab tabHome = actionBar.newTab().setText("Home").setTag(HTAG).setTabListener(this);
+        Tab tabBookmark = actionBar.newTab().setText("Bookmarks").setTag(BTAG).setTabListener(this);
         actionBar.addTab(tabHome);
         actionBar.addTab(tabBookmark);
         actionBar.selectTab(tabHome);
     }
 
+    private void setUpFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fts = manager.beginTransaction();
+        llf = new LinkListFragment();
+        fts.replace(R.id.flContainer, llf);
+        fts.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+//        getActionBar().selectTab(tabHome);
+    }
+
     public void onToDetailView(View view) {
         Integer pos = (Integer) view.getTag();
 
-        ArrayList<Link> linkList;
-        if (inHomeFragment) {
-           linkList = hf.getLinkList();
-        } else {
-           linkList = bf.getLinkList();
-        }
-
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-        intent.putParcelableArrayListExtra("linkList", linkList);
+        intent.putParcelableArrayListExtra("linkList", llf.getLinkList());
         intent.putExtra("pos", pos);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -99,22 +104,17 @@ public class FeedActivity extends FragmentActivity implements TabListener {
 
     @Override
     public void onTabSelected(Tab tab, android.app.FragmentTransaction fragmentTransaction) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction fts = manager.beginTransaction();
-        if (tab.getTag() == "HomeFragment") {
-            if (hf == null) {
-                hf = new HomeFragment();
+        if (llf.getAdapter() != null) {
+            if (tab.getTag() == HTAG) {
+                llf.getAdapter().setBookmarkMode(false);
+                llf.getLVLinks().setVerticalScrollBarEnabled(true);
+            } else {
+                llf.getAdapter().setBookmarkMode(true);
+                llf.getLVLinks().setVerticalScrollBarEnabled(false);
             }
-            inHomeFragment = true;
-            fts.replace(R.id.flContainer, hf);
-        } else {
-            if (bf == null) {
-                bf = new BookmarkFragment();
-            }
-            fts.replace(R.id.flContainer, bf);
-            inHomeFragment = false;
+            llf.getAdapter().notifyDataSetInvalidated();
+            llf.getAdapter().notifyDataSetChanged();
         }
-        fts.commit();
     }
 
     @Override

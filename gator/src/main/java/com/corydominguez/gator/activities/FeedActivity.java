@@ -103,7 +103,10 @@ public class FeedActivity extends FragmentActivity implements TabListener {
     }
 
     public void onMarkAllRead(MenuItem item) {
-
+        for (Link link : llf.getLinkList()) {
+            link.markRead();
+        }
+        llf.getAdapter().notifyDataSetInvalidated();
     }
 
     @Override

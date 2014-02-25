@@ -9,6 +9,7 @@
         <item name="android:actionBarItemBackground">@drawable/action_bar_icon_background</item>
         <!--<item name="android:homeAsUpIndicator">@drawable/ic_action_navigation_previous_item</item>-->
         <item name="android:actionBarTabStyle">@style/ActionBar.Tab.Sqrl</item>
+        <item name="android:actionBarTabTextStyle">@style/ActionBar.Tab.TextStyle.Sqrl</item>
     </style>
 
     <!-- ActionBar styles -->
@@ -25,6 +26,10 @@
         <item name="android:background">@drawable/tab_bar_background</item>
         <item name="android:gravity">center</item>
         <item name="android:showDividers">none</item>
+    </style>
+
+    <style name="ActionBar.Tab.TextStyle.Sqrl" parent="android:Widget.Holo.Light.ActionBar.TabBar">
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

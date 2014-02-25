@@ -2,6 +2,7 @@ package com.corydominguez.gator.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,8 @@ import com.corydominguez.gator.models.Link;
  */
 public class LinkDetailFragment extends Fragment {
     private Link link;
+    private MenuItem actionBookmark;
+    private MenuItem actionRead;
     private TextView tvTitle;
     private TextView tvDescription;
     private TextView tvUrl;
@@ -35,16 +38,9 @@ public class LinkDetailFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_linkdetail, container, false);
         assert (view != null);
-        link.markRead();
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvUrl = (TextView) view.findViewById(R.id.tvUrl);
@@ -64,44 +60,46 @@ public class LinkDetailFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.detail, menu);
 
-        MenuItem actionBookmark = menu.findItem(R.id.action_bookmark);
+        actionBookmark = menu.findItem(R.id.action_bookmark);
         assert (actionBookmark != null);
-        setBookmark(link.getIsBookmarked(), actionBookmark);
+
+        setBookmark(link.getIsBookmarked());
         actionBookmark.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 link.toggleBookmark();
-                setBookmark(link.getIsBookmarked(), menuItem);
+                setBookmark(link.getIsBookmarked());
                 return true;
             }
         });
 
-        MenuItem actionRead = menu.findItem(R.id.action_read);
+        actionRead = menu.findItem(R.id.action_read);
+        link.markRead();
         assert (actionRead != null);
-        setRead(link.getIsRead(), actionRead);
+        setRead(link.getIsRead());
         actionRead.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 link.toggleRead();
-                setRead(link.getIsRead(), menuItem);
+                setRead(link.getIsRead());
                 return true;
             }
         });
     }
 
-    private void setBookmark(Boolean isBookmarked, MenuItem menuItem) {
+    private void setBookmark(Boolean isBookmarked) {
         if (isBookmarked) {
-            menuItem.setIcon(R.drawable.ic_action_bookmarked);
+            actionBookmark.setIcon(R.drawable.ic_action_bookmarked);
         } else {
-            menuItem.setIcon(R.drawable.ic_action_not_bookmarked);
+            actionBookmark.setIcon(R.drawable.ic_action_not_bookmarked);
         }
     }
 
-    private void setRead(Boolean isRead, MenuItem menuItem) {
+    private void setRead(Boolean isRead) {
         if (isRead) {
-            menuItem.setIcon(R.drawable.ic_marked);
+            actionRead.setIcon(R.drawable.ic_marked);
         } else {
-            menuItem.setIcon(R.drawable.ic_unmarked);
+            actionRead.setIcon(R.drawable.ic_unmarked);
         }
     }
 

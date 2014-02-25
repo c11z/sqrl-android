@@ -57,7 +57,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
     @Override
     protected void onStart() {
         super.onStart();
-        llf.getLinksSinceYoungest();
+        llf.getAdapter().notifyDataSetInvalidated();
     }
 
     @Override
@@ -79,7 +79,9 @@ public class FeedActivity extends FragmentActivity implements TabListener {
     }
 
     public void onDomain(View v) {
-        String url = (String) v.getTag();
+        Link link = (Link) v.getTag();
+        link.markRead();
+        String url = link.getUrl();
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }

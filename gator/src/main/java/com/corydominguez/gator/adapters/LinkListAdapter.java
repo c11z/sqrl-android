@@ -1,6 +1,7 @@
 package com.corydominguez.gator.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,8 +84,9 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvTitle.setText(link.getTitle());
         if (link.getIsRead()) {
-
-            tvTitle.setTextColor(R.color.dark_grey);
+            tvTitle.setTextColor(Color.GRAY);
+        } else {
+            tvTitle.setTextColor(Color.BLACK);
         }
 
         TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
@@ -92,7 +94,7 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
 
         TextView tvDomain = (TextView) view.findViewById(R.id.tvDomain);
         tvDomain.setText(link.getDomain());
-        tvDomain.setTag(link.getUrl());
+        tvDomain.setTag(link);
 
         TextView tvTweetCount = (TextView) view.findViewById(R.id.tvTweetCount);
         tvTweetCount.setText(String.valueOf(link.getTweets().size()));

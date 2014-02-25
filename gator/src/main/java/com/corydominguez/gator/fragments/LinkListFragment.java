@@ -86,6 +86,7 @@ public class LinkListFragment extends Fragment {
         setupAdapter();
         setupViews();
         setupClient();
+        gatorClient.getLast100();
     }
 
     protected void setupAdapter(){

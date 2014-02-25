@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.corydominguez.gator.activities.FeedActivity" >
-    <item android:id="@+id/action_search"
-        android:title="@string/search_title"
-        android:icon="@drawable/ic_search"
-        android:onClick="onSearch"
+    <item android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:onClick="onRefresh"
         android:showAsAction="always" />
     <item android:id="@+id/action_mark_all_read"
         android:title="@string/mark_all_read"

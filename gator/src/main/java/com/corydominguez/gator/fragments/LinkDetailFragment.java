@@ -32,6 +32,8 @@ public class LinkDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         link = getArguments().getParcelable("link");
+        assert(link != null);
+        link.markRead();
     }
 
     @Override

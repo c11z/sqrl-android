@@ -93,9 +93,13 @@ public class FeedActivity extends FragmentActivity implements TabListener {
     public void onShow(MenuItem item) {
         if(item.getTitle().equals("Show All")) {
             item.setTitle("Show Unread");
+            llf.getAdapter().setReadMode(false);
         } else {
             item.setTitle("Show All");
+            llf.getAdapter().setReadMode(true);
         }
+        llf.getAdapter().notifyDataSetInvalidated();
+        llf.getAdapter().notifyDataSetChanged();
     }
 
     public void onMarkAllRead(MenuItem item) {

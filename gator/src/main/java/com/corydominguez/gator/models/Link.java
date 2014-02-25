@@ -131,6 +131,9 @@ public class Link implements Parcelable {
         isRead = !isRead;
     }
 
+    public void markRead() {
+        isRead = true;
+    }
     public ArrayList<Tweet> getTweets() {
         return tweets;
     }

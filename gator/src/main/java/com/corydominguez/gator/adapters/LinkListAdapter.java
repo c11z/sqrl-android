@@ -26,7 +26,7 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
     public LinkListAdapter(Context context, List<Link> links){
         super(context, 0, links);
         bookmarkMode = false;
-        readMode= false;
+        readMode = true;
     }
 
     public Boolean getBookmarkMode() {
@@ -50,7 +50,8 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
         View view = convertView;
         Link link = getItem(position);
 
-        if ((bookmarkMode && !link.getIsBookmarked()) || (readMode && !link.getIsRead())) {
+        if ((bookmarkMode && !link.getIsBookmarked()) ||
+            (readMode && link.getIsRead() && !bookmarkMode)) {
             view = inflater.inflate(R.layout.item_null, null);
             assert view != null;
             view.setTag("null");

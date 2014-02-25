@@ -17,4 +17,5 @@
     <string name="mark_all_read">Mark All As Read</string>
 
     <string name="chosen_bookmarked_icon">ic_bookmarked_secondary_warm_light</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

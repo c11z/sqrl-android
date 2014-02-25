@@ -58,6 +58,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
     protected void onStart() {
         super.onStart();
         llf.getAdapter().notifyDataSetInvalidated();
+//        llf.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -86,8 +87,8 @@ public class FeedActivity extends FragmentActivity implements TabListener {
         startActivity(intent);
     }
 
-    public void onSearch(MenuItem item) {
-
+    public void onRefresh(MenuItem item) {
+        llf.getLinksSinceYoungest();
     }
 
     public void onShow(MenuItem item) {
@@ -99,7 +100,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
             llf.getAdapter().setReadMode(true);
         }
         llf.getAdapter().notifyDataSetInvalidated();
-        llf.getAdapter().notifyDataSetChanged();
+//        llf.getAdapter().notifyDataSetChanged();
     }
 
     public void onMarkAllRead(MenuItem item) {
@@ -107,6 +108,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
             link.markRead();
         }
         llf.getAdapter().notifyDataSetInvalidated();
+//        llf.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -131,7 +133,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
                 llf.getLVLinks().setVerticalScrollBarEnabled(false);
             }
             llf.getAdapter().notifyDataSetInvalidated();
-            llf.getAdapter().notifyDataSetChanged();
+//            llf.getAdapter().notifyDataSetChanged();
         }
     }
 

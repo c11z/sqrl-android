@@ -17,7 +17,6 @@ import com.corydominguez.gator.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 

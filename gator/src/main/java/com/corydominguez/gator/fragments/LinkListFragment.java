@@ -40,6 +40,16 @@ public class LinkListFragment extends Fragment {
     public ArrayList<Link> getLinkList() {
         return this.linkList;
     }
+
+    public void replaceLinkList(ArrayList<Link> newlinkList) {
+        LinkListAdapter newAdapter = new LinkListAdapter(getActivity(), newlinkList);
+        newAdapter.setBookmarkMode(adapter.getBookmarkMode());
+        newAdapter.setReadMode(adapter.getReadMode());
+        adapter = newAdapter;
+        linkList = newlinkList;
+        lvLinks.setAdapter(adapter);
+
+    }
     // Probably should not use the handler from here, instead instantiate the client
     // that way we can only have one handler and manage whether it is running or not
     public GatorHttpHandler getGatorHttpHandler(){

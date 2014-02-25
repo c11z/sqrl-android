@@ -17,11 +17,14 @@ import android.view.View;
 
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.fragments.LinkListFragment;
+import com.corydominguez.gator.models.Link;
+
+import java.util.ArrayList;
 
 public class FeedActivity extends FragmentActivity implements TabListener {
     private static final String HTAG = "Home";
     private static final String BTAG = "Bookmarks";
-
+    private static final int DETAIL_RESUlT_CODE = 34;
     private LinkListFragment llf;
 
 	@Override
@@ -59,13 +62,21 @@ public class FeedActivity extends FragmentActivity implements TabListener {
 //        getActionBar().selectTab(tabHome);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == DETAIL_RESUlT_CODE) {
+            ArrayList<Link> newLinkList = data.getParcelableArrayListExtra("linkList");
+            llf.replaceLinkList(newLinkList);
+        }
+    }
+
     public void onToDetailView(View view) {
         Integer pos = (Integer) view.getTag();
 
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
         intent.putParcelableArrayListExtra("linkList", llf.getLinkList());
         intent.putExtra("pos", pos);
-        startActivity(intent);
+        startActivityForResult(intent, DETAIL_RESUlT_CODE);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 

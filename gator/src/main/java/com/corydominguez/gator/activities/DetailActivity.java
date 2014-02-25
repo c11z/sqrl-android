@@ -2,6 +2,7 @@ package com.corydominguez.gator.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -58,12 +59,18 @@ public class DetailActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent data = new Intent();
+        data.putParcelableArrayListExtra("linkList", linkList);
+        setResult(RESULT_OK, data);
         finish();
         return true;
     }
 
     @Override
     public void onBackPressed() {
+        Intent data = new Intent();
+        data.putParcelableArrayListExtra("linkList", linkList);
+        setResult(RESULT_OK, data);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

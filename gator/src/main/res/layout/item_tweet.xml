@@ -7,9 +7,9 @@
         android:id="@+id/ivProfile"
         android:contentDescription="@string/profile_image_description"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:minHeight="36dp"
-        android:minWidth="36dp"
+        android:layout_marginTop="15dp"
+        android:minHeight="30dp"
+        android:minWidth="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout

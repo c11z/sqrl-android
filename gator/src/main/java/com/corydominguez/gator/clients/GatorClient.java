@@ -1,21 +1,19 @@
 package com.corydominguez.gator.clients;
 
-import android.net.Uri;
 import android.widget.ProgressBar;
 
 import com.corydominguez.gator.adapters.LinkListAdapter;
 import com.corydominguez.gator.handlers.GatorHttpHandler;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.message.BasicNameValuePair;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.Date;
 import java.util.List;
 
 //import com.corydominguez.gator.models.Tweet;
@@ -28,11 +26,10 @@ public class GatorClient extends AsyncHttpClient {
     public static final String REST_URL = "http://ec2-54-84-52-116.compute-1.amazonaws.com";
     public static final String TWEETER_ID = "164865735";
     private DateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-    private GatorHttpHandler handler;
+    private static GatorHttpHandler handler;
 
     public GatorClient(ProgressBar pb, LinkListAdapter adapter) {
         handler = new GatorHttpHandler(pb, adapter);
-
     }
 
     @Override
@@ -42,15 +39,39 @@ public class GatorClient extends AsyncHttpClient {
         }
     }
 
+    @Override
+    public void get(String s, RequestParams requestParams, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        if (!handler.running) {
+            super.get(s, requestParams, asyncHttpResponseHandler);
+        }
+    }
+
     public void getPast24() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         String yesterday = df.format(cal.getTime());
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("startDate", yesterday.split(" ")[0]));
-        String url = getApiUrlWithParams("linkbundle", params);
+        RequestParams params = new RequestParams();
+        params.put("startDate", yesterday);
+        String url = getApiUrl("linkbundle");
+        handler.appendMode = false;
+        get(url, params, handler);
+    }
+
+    public void getLast100() {
+        RequestParams params = new RequestParams();
+        params.put("limit", "100");
+        String url = getApiUrl("linkbundle");
         handler.appendMode = false;
         get(url, handler);
+    }
+
+    public void getSince(Date since) {
+        RequestParams params = new RequestParams();
+        params.put("startDate", df.format(since));
+        String url = getApiUrl("linkbundle");
+        handler.appendMode = false;
+        get(url, params, handler);
+
     }
 
     private String getApiUrlWithParams(String endpoint, List<BasicNameValuePair> params) {
@@ -69,15 +90,9 @@ public class GatorClient extends AsyncHttpClient {
         return url;
     }
 
-    private String getApiUrl(String endpoint, String since) {
+    private String getApiUrl(String endpoint) {
         //OLD URL: REST_URL + "/" + endpoint + "/" + TWEETER_ID + "/" + Uri.encode(since);
-        String url = REST_URL + "/" + endpoint + "/" + Uri.encode(since.split(" ")[0]);
-        return url;
-    }
-
-    private String getApiUrl(String endpoint, String tweeterId, String since) {
-        //OLD URL: REST_URL + "/" + endpoint + "/" + tweeterId + "/" + Uri.encode(since);
-        String url = REST_URL + "/" + endpoint + "/" + tweeterId + "/" + Uri.encode(since);
+        String url = REST_URL + "/" + endpoint ;
         return url;
     }
 }

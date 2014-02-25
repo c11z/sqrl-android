@@ -1,6 +1,5 @@
 package com.corydominguez.gator.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,7 +25,7 @@ public class LinkListFragment extends Fragment {
     protected LinkListAdapter adapter;
     protected ArrayList<Link> linkList;
     protected GatorHttpHandler gatorHttpHandler;
-    protected GatorClient gatorClient;
+    protected static GatorClient gatorClient;
     protected ProgressBar pb;
 
     public ListView getLVLinks(){
@@ -39,6 +38,18 @@ public class LinkListFragment extends Fragment {
 
     public ArrayList<Link> getLinkList() {
         return this.linkList;
+    }
+
+    public GatorClient getClient() {
+        return gatorClient;
+    }
+
+    public void getLinksSinceYoungest() {
+        if (linkList.size() > 0) {
+            gatorClient.getSince(linkList.get(0).getCreatedAt());
+        } else {
+            gatorClient.getLast100();
+        }
     }
 
     public void replaceLinkList(ArrayList<Link> newlinkList) {
@@ -75,7 +86,6 @@ public class LinkListFragment extends Fragment {
         setupAdapter();
         setupViews();
         setupClient();
-        gatorClient.getPast24();
     }
 
     protected void setupAdapter(){

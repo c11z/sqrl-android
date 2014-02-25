@@ -32,8 +32,6 @@ public class LinkDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         link = getArguments().getParcelable("link");
-        assert(link != null);
-        link.markRead();
     }
 
     @Override
@@ -46,7 +44,7 @@ public class LinkDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_linkdetail, container, false);
         assert (view != null);
-
+        link.markRead();
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvUrl = (TextView) view.findViewById(R.id.tvUrl);

@@ -15,6 +15,7 @@ import com.corydominguez.gator.models.Link;
 import com.corydominguez.gator.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -81,12 +82,16 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
 
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvTitle.setText(link.getTitle());
+        if (link.getIsRead()) {
+
+            tvTitle.setTextColor(R.color.dark_grey);
+        }
 
         TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvDescription.setText(link.getDescription());
 
         TextView tvDomain = (TextView) view.findViewById(R.id.tvDomain);
-        tvDomain.setText( " - " + link.getDomain());
+        tvDomain.setText(link.getDomain());
         tvDomain.setTag(link.getUrl());
 
         TextView tvTweetCount = (TextView) view.findViewById(R.id.tvTweetCount);
@@ -94,7 +99,7 @@ public class LinkListAdapter extends ArrayAdapter<Link> {
 
         TextView tvTweetHandles = (TextView) view.findViewById(R.id.tvTweetHandles);
         String handles = "";
-        HashSet<String> handleSet = new HashSet<String>();
+        ArrayList<String> handleSet = new ArrayList<String>();
 
         for (Tweet tweet : link.getTweets()) {
             handleSet.add("@" + tweet.getScreenName());

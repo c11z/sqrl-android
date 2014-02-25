@@ -89,6 +89,7 @@ public class FeedActivity extends FragmentActivity implements TabListener {
 
     public void onRefresh(MenuItem item) {
         llf.getLinksSinceYoungest();
+        llf.getAdapter().notifyDataSetChanged();
     }
 
     public void onShow(MenuItem item) {

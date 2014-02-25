@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.corydominguez.gator.R;
 import com.corydominguez.gator.adapters.TweetsAdapter;
 import com.corydominguez.gator.models.Link;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by coryd on 17/02/2014.
@@ -24,11 +26,6 @@ public class LinkDetailFragment extends Fragment {
     private Link link;
     private MenuItem actionBookmark;
     private MenuItem actionRead;
-    private TextView tvTitle;
-    private TextView tvDescription;
-    private TextView tvUrl;
-    private ListView lvTweets;
-    private TweetsAdapter tweetsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,13 +38,17 @@ public class LinkDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_linkdetail, container, false);
         assert (view != null);
-        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
-        tvUrl = (TextView) view.findViewById(R.id.tvUrl);
-        lvTweets = (ListView) view.findViewById(R.id.lvTweets);
-        tweetsAdapter = new TweetsAdapter(getActivity(),link.getTweets());
+        TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        ImageView ivHeroImage = (ImageView) view.findViewById(R.id.ivHeroImage);
+        TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        TextView tvUrl = (TextView) view.findViewById(R.id.tvUrl);
+        ListView lvTweets = (ListView) view.findViewById(R.id.lvTweets);
+        TweetsAdapter tweetsAdapter = new TweetsAdapter(getActivity(), link.getTweets());
 
         tvTitle.setText(link.getTitle());
+        if (link.getHeroImageUrl() != null) {
+            ImageLoader.getInstance().displayImage(link.getHeroImageUrl(), ivHeroImage);
+        }
         tvDescription.setText(link.getDescription());
         tvUrl.setText(link.getUrl());
         lvTweets.setAdapter(tweetsAdapter);

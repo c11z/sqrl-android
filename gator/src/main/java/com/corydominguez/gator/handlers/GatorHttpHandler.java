@@ -51,6 +51,7 @@ public class GatorHttpHandler extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(Throwable throwable, String s) {
+       // TODO: ConnectionException is thrown becuase EC2 box does not have global dns
        Log.d("ERROR", "Everyone Panic! " + throwable.toString());
        throwable.printStackTrace();
     }

@@ -17,7 +17,7 @@ import com.corydominguez.gator.util.SystemUiHider;
  */
 public class SplashScreenActivity extends Activity {
 	// Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 2000;
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,6 @@ public class SplashScreenActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_splash_screen);
- 
         new Handler().postDelayed(new Runnable() {
  
             /*
@@ -35,13 +34,14 @@ public class SplashScreenActivity extends Activity {
  
             @Override
             public void run() {
+                finish();
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 Intent i = new Intent(SplashScreenActivity.this, FeedActivity.class);
                 startActivity(i);
  
                 // close this activity
-                finish();
+
             }
         }, SPLASH_TIME_OUT);
     }

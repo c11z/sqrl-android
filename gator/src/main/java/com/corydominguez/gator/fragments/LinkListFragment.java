@@ -14,6 +14,8 @@ import com.corydominguez.gator.clients.GatorClient;
 import com.corydominguez.gator.handlers.GatorHttpHandler;
 import com.corydominguez.gator.models.Link;
 
+import org.apache.http.client.params.ClientPNames;
+
 import java.util.ArrayList;
 
 /**
@@ -96,6 +98,7 @@ public class LinkListFragment extends Fragment {
 
     protected void setupClient(){
         gatorClient = new GatorClient(pb, adapter);
+        gatorClient.getHttpClient().getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
     }
 
     protected void setupViews(){

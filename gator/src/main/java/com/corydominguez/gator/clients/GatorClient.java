@@ -8,6 +8,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.client.params.ClientPNames;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.text.DateFormat;
@@ -24,7 +25,6 @@ import java.util.List;
  */
 public class GatorClient extends AsyncHttpClient {
     public static final String REST_URL = "http://ec2-54-84-52-116.compute-1.amazonaws.com";
-    public static final String TWEETER_ID = "164865735";
     private DateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
     private static GatorHttpHandler handler;
 

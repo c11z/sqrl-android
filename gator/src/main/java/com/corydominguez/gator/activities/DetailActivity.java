@@ -1,7 +1,6 @@
 package com.corydominguez.gator.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -63,6 +62,7 @@ public class DetailActivity extends FragmentActivity {
         data.putParcelableArrayListExtra("linkList", linkList);
         setResult(RESULT_OK, data);
         finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         return true;
     }
 

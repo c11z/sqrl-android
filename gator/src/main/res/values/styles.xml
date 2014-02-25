@@ -10,6 +10,7 @@
         <item name="android:homeAsUpIndicator">@drawable/homeasupicon</item>
         <item name="android:actionBarTabStyle">@style/ActionBar.Tab.Sqrl</item>
         <item name="android:actionBarTabTextStyle">@style/ActionBar.Tab.TextStyle.Sqrl</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <!-- ActionBar styles -->

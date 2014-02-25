@@ -91,16 +91,20 @@ public class LinkDetailFragment extends Fragment {
     private void setBookmark(Boolean isBookmarked) {
         if (isBookmarked) {
             actionBookmark.setIcon(R.drawable.ic_action_bookmarked);
+            actionBookmark.setTitle("Remove Bookmark");
         } else {
             actionBookmark.setIcon(R.drawable.ic_action_not_bookmarked);
+            actionBookmark.setTitle("Bookmark");
         }
     }
 
     private void setRead(Boolean isRead) {
         if (isRead) {
             actionRead.setIcon(R.drawable.ic_marked);
+            actionRead.setTitle("Mark Unread");
         } else {
             actionRead.setIcon(R.drawable.ic_unmarked);
+            actionRead.setTitle("Mark As Read");
         }
     }
 
